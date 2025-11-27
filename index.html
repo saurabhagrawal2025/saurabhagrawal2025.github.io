@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Chen - AI Product Leader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #0f0f0f;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            top: -250px;
+            right: -250px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.1) 0%, transparent 70%);
+            bottom: -200px;
+            left: -200px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+        }
+
+        .hero .tagline {
+            font-size: 18px;
+            color: #707070;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: #a0a0a0;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: #0f0f0f;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .project-content {
+            padding: 30px;
+        }
+
+        .project-content h3 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .project-content p {
+            color: #a0a0a0;
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 5px 15px;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: #1a1a2e;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: rgba(102, 126, 234, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            color: #a0a0a0;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .skill-category li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: #0f0f0f;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            color: #a0a0a0;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            padding: 15px 30px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-link:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 30px 0;
+            text-align: center;
+            color: #707070;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">Alex Chen</div>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AI Product Leader</h1>
+            <p class="subtitle">Building intelligent products that scale</p>
+            <p class="tagline">Bridging the gap between cutting-edge AI research and real-world applications that deliver measurable business impact</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Projects</h2>
+                <p>AI-powered products I've built and launched</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">🤖</div>
+                    <div class="project-content">
+                        <h3>Intelligent Customer Support Bot</h3>
+                        <p>Reduced response time by 60% using LLM-powered agent that handles 10K+ queries daily with 94% accuracy.</p>
+                        <div class="project-tags">
+                            <span class="tag">LLMs</span>
+                            <span class="tag">RAG</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">API Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">📊</div>
+                    <div class="project-content">
+                        <h3>Predictive Analytics Platform</h3>
+                        <p>ML-driven forecasting system that improved demand prediction accuracy by 40%, saving $2M annually.</p>
+                        <div class="project-tags">
+                            <span class="tag">Machine Learning</span>
+                            <span class="tag">Time Series</span>
+                            <span class="tag">AWS</span>
+                            <span class="tag">React</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">🎯</div>
+                    <div class="project-content">
+                        <h3>Personalization Engine</h3>
+                        <p>Real-time recommendation system serving 5M+ users, increasing engagement by 35% and conversion by 22%.</p>
+                        <div class="project-tags">
+                            <span class="tag">Recommendation Systems</span>
+                            <span class="tag">Deep Learning</span>
+                            <span class="tag">A/B Testing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">🔍</div>
+                    <div class="project-content">
+                        <h3>Document Intelligence System</h3>
+                        <p>OCR and NLP pipeline processing 100K+ documents monthly, automating 80% of manual data entry tasks.</p>
+                        <div class="project-tags">
+                            <span class="tag">NLP</span>
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag">Pipeline Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">💬</div>
+                    <div class="project-content">
+                        <h3>Conversational AI Assistant</h3>
+                        <p>Multi-turn dialogue system with context awareness, deployed across web and mobile with 89% user satisfaction.</p>
+                        <div class="project-tags">
+                            <span class="tag">LLMs</span>
+                            <span class="tag">Prompt Engineering</span>
+                            <span class="tag">Product Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">⚡</div>
+                    <div class="project-content">
+                        <h3>Real-time Fraud Detection</h3>
+                        <p>ML system detecting anomalies in milliseconds, catching 99.2% of fraudulent transactions with low false positives.</p>
+                        <div class="project-tags">
+                            <span class="tag">Anomaly Detection</span>
+                            <span class="tag">Real-time ML</span>
+                            <span class="tag">Kafka</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>Skills & Expertise</h2>
+                <p>Technical and product capabilities</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>AI/ML Technologies</h3>
+                    <ul>
+                        <li>Large Language Models (GPT, Claude, Llama)</li>
+                        <li>Deep Learning (PyTorch, TensorFlow)</li>
+                        <li>NLP & Computer Vision</li>
+                        <li>RAG & Vector Databases</li>
+                        <li>ML Ops & Model Deployment</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Product Management</h3>
+                    <ul>
+                        <li>Product Strategy & Roadmapping</li>
+                        <li>User Research & Testing</li>
+                        <li>A/B Testing & Experimentation</li>
+                        <li>Metrics & Analytics</li>
+                        <li>Cross-functional Leadership</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Engineering</h3>
+                    <ul>
+                        <li>Python, JavaScript, SQL</li>
+                        <li>API Design & Architecture</li>
+                        <li>Cloud Platforms (AWS, GCP, Azure)</li>
+                        <li>Docker & Kubernetes</li>
+                        <li>CI/CD & DevOps</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Business Skills</h3>
+                    <ul>
+                        <li>Go-to-Market Strategy</li>
+                        <li>Stakeholder Management</li>
+                        <li>Technical Writing</li>
+                        <li>Team Building & Mentoring</li>
+                        <li>P&L Management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Let's Connect</h2>
+            </div>
+            <div class="contact-content">
+                <p>Interested in collaborating or learning more about my work? I'd love to hear from you.</p>
+                <div class="contact-links">
+                    <a href="mailto:alex.chen@email.com" class="contact-link">📧 Email</a>
+                    <a href="https://linkedin.com" class="contact-link">💼 LinkedIn</a>
+                    <a href="https://github.com" class="contact-link">💻 GitHub</a>
+                    <a href="https://twitter.com" class="contact-link">🐦 Twitter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Alex Chen. Built with passion for AI products.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.style.padding = '15px 0';
+            } else {
+                nav.style.padding = '20px 0';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
